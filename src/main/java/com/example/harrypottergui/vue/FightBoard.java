@@ -1,5 +1,6 @@
 package com.example.harrypottergui.vue;
 
+import com.example.harrypottergui.HelloApplication;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.geometry.Insets;
@@ -16,6 +17,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import utils.ScrollingInWindow;
 
 
 public class FightBoard {
@@ -29,7 +31,7 @@ public class FightBoard {
 
     private GridPane gridPane1;
     private GridPane gridPane2;
-    private Label textDialogue;
+    public static Label textDialogue;
 
     private HBox HBhero;
     private HBox HBennemy;
@@ -77,7 +79,8 @@ public class FightBoard {
         HBsubscene.setAlignment(Pos.CENTER);
         gamePane.getChildren().add(HBsubscene);
         //TODO : VERIF PRINT DU TEXTE
-        setMessage("\nQue voulez-vous faire sachant que " + StartController.enemy.getName() + " \nse situe à " + StartController.enemy.getDistance() + " mètres et à " + StartController.enemy.getLifePoint() + " points de vie ?");
+        ScrollingInWindow.setMessage("\nQue voulez-vous faire sachant que " + StartController.enemy.getName() + " \nse situe à " + StartController.enemy.getDistance() + " mètres et à " + StartController.enemy.getLifePoint() + " points de vie ?");
+//        setMessage("\nQue voulez-vous faire sachant que " + StartController.enemy.getName() + " \nse situe à " + StartController.enemy.getDistance() + " mètres et à " + StartController.enemy.getLifePoint() + " points de vie ?");
 
         //TODO : NOM + IMAGE ENNEMI
         HBhero.getChildren().add(new CharacterRepresentation(imageWizard, StartController.wizard.getName()));
@@ -132,23 +135,25 @@ public class FightBoard {
         buttonGrid.add(openBackpack, 0, 3, 2, 1);
     }
 
-    private void setMessage(String string) {
-        final Animation animation = new Transition() {
-            {
-                setCycleDuration(Duration.millis(1000));
-            }
-
-            protected void interpolate(double frac) {
-                final int length = string.length();
-                final int n = Math.round(length * (float) frac);
-                textDialogue.setText(string.substring(0, n));
-            }
-        };
-        animation.play();
-    }
+//    private void setMessage(String string) {
+//        final Animation animation = new Transition() {
+//            {
+//                setCycleDuration(Duration.millis(1000));
+//            }
+//
+//            protected void interpolate(double frac) {
+//                final int length = string.length();
+//                final int n = Math.round(length * (float) frac);
+//                textDialogue.setText(string.substring(0, n));
+//            }
+//        };
+//        animation.play();
+//    }
 
     public void throwing(ButtonGrid buttonGrid) {
-        setMessage("Tu jettes qqchose ");
+        // TODO VERIF SI possible d'appeler fight directement et comprend 2 si clic sur le bouton 1 ,2 sur le 2 ....
+        StartController.enemy.onWizardAttack(StartController.wizard);
+
     }
 
     public void gettingCloser(ButtonGrid buttonGrid) {

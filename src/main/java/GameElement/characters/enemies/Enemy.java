@@ -24,7 +24,6 @@ public class Enemy extends AbstractEnemy {
 
     @Override
     public void onWizardAttack(Wizard wizard) {
-
     }
 
     @Override

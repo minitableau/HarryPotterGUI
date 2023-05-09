@@ -34,6 +34,7 @@ public class StartController {
     }
 
     public void onPlayAction(ActionEvent e) {
+
         String HAGRID_ARRIVAL_MESSAGE = "Vous entendez frapper à la porte. En l'ouvrant, vous trouvez un homme gigantesque, un demi-géant, avec une barbe sauvage et des yeux pétillants.\n\"Bonjour, je suis Rubeus Hagrid gardien des clés et des lieux à Poudlard\", dit-il en souriant. \"Je viens chercher un jeune sorcier de 11 ans pour l'emmener à Poudlard.\n Et vous êtes...?";
         ScrollingInWindow.printInWindow(HAGRID_ARRIVAL_MESSAGE);
         nextButton.setOnAction(event -> {

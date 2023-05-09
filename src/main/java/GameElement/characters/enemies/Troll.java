@@ -1,9 +1,11 @@
 package GameElement.characters.enemies;
 
+import Game.Game;
 import GameElement.Friend;
 import GameElement.characters.Character;
 import GameElement.characters.Wizard;
 import utils.MathUtils;
+import utils.ScrollingInWindow;
 
 import java.util.List;
 
@@ -35,6 +37,9 @@ public class Troll extends Enemy {
     @Override
     public void onWizardAttack(Wizard wizard) {
         int damage = 20 + (20 * wizard.getPowerBonus()) / 100;
+        if (Game.gui) {
+            ScrollingInWindow.setMessage("Vous jetez des bouts de bois sur le troll. Il perd " + damage + " points de vie");
+        }
         System.out.println("Vous jetez des bouts de bois sur le troll. Il perd " + damage + " points de vie");
         this.takeDamage(damage);
     }

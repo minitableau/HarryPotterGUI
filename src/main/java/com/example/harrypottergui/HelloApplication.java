@@ -1,5 +1,6 @@
 package com.example.harrypottergui;
 
+import Game.Game;
 import com.example.harrypottergui.vue.NameController;
 import com.example.harrypottergui.vue.NameVue;
 import com.example.harrypottergui.vue.StartController;
@@ -13,8 +14,10 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     private Stage stage;
 
+
     @Override
     public void start(Stage stage) throws IOException {
+        Game.gui = true;
         this.stage = stage;
         showStartScene();
     }

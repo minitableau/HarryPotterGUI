@@ -11,6 +11,7 @@ import utils.ScrollingText;
 
 public class Game {
     private Wizard wizard;
+    public static boolean gui = false;
 
     public static void main(String[] args) {
         Wizard wizard = new Wizard(null, null, null, null);
@@ -46,6 +47,7 @@ public class Game {
             }
         }
         if (choice == 2) {
+            gui = true;
             HelloApplication.launch(HelloApplication.class);
         }
     }

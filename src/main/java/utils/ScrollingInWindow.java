@@ -1,6 +1,10 @@
 package utils;
 
+import com.example.harrypottergui.vue.FightBoard;
+import com.example.harrypottergui.vue.StartController;
+import javafx.animation.Animation;
 import javafx.animation.PauseTransition;
+import javafx.animation.Transition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -50,6 +54,21 @@ public class ScrollingInWindow {
                 textArea.appendText(line + "\n");
             }
         }
+    }
+
+    public static void setMessage(String string) {
+        final Animation animation = new Transition() {
+            {
+                setCycleDuration(Duration.millis(1000));
+            }
+
+            protected void interpolate(double frac) {
+                final int length = string.length();
+                final int n = Math.round(length * (float) frac);
+                FightBoard.textDialogue.setText(string.substring(0, n));
+            }
+        };
+        animation.play();
     }
 
 
