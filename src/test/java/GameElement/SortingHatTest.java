@@ -22,7 +22,7 @@ public class SortingHatTest {
         // create a fake scanner with a predefined excluded house index
         Scanner scanner = new Scanner("2\n");
 
-        House house = sortingHat.sort(scanner);
+        House house = sortingHat.sort(1);
 
         // check that the excluded house was not selected
         Assertions.assertNotEquals(house, House.SLYTHERIN);
@@ -35,7 +35,7 @@ public class SortingHatTest {
         // create a fake scanner with an invalid excluded house index
         Scanner scanner = new Scanner("5\n1\n");
 
-        House house = sortingHat.sort(scanner);
+        House house = sortingHat.sort(1);
 
         // check that the excluded house was not selected
         Assertions.assertNotNull(house);

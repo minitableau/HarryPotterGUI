@@ -47,14 +47,17 @@ public class Wizard extends Character {
             return;
         }
 
-        System.out.println("\n" + this);
-        System.out.println(ConsoleColors.BLUE + "\nQue voulez-vous faire sachant que " + enemy.getName() + " se situe à " + enemy.getDistance() + " mètres et à " + enemy.getLifePoint() + " points de vie ?" + ConsoleColors.RESET);
-        System.out.println("1 : " + enemy.whatAWizardCanDoAgainstMe());
-        System.out.println("2 : Se rapprocher");
-        System.out.println("3 : Utiliser un sort");
-        System.out.println("4 : Ouvrir votre sac");
+//        System.out.println("\n" + this);
+//        System.out.println(ConsoleColors.BLUE + "\nQue voulez-vous faire sachant que " + enemy.getName() + " se situe à " + enemy.getDistance() + " mètres et à " + enemy.getLifePoint() + " points de vie ?" + ConsoleColors.RESET);
+//        System.out.println("1 : " + enemy.whatAWizardCanDoAgainstMe());
+//        System.out.println("2 : Se rapprocher");
+//        System.out.println("3 : Utiliser un sort");
+//        System.out.println("4 : Ouvrir votre sac");
+//
+//        int choice = InteractionUtils.askForInt(1, 4);
 
         int choice = InteractionUtils.askForInt(1, 4);
+
         while (true) {
             if (choice == 1) {
                 enemy.onWizardAttack(this);

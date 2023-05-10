@@ -1,6 +1,9 @@
 package utils;
 
+import javafx.scene.control.TextInputDialog;
+
 import java.util.InputMismatchException;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class InteractionUtils {
@@ -10,24 +13,29 @@ public class InteractionUtils {
             throw new IllegalArgumentException("min must be lower than max");
         }
 
-        if (!message.isBlank() && !message.isEmpty()) {
-            ScrollingText.printWithDelay(message);
-        }
-
-        Scanner scanner = new Scanner(System.in);
         int value;
 
         while (true) {
+            TextInputDialog dialog = new TextInputDialog();
+            if (!message.isBlank() && !message.isEmpty()) {
+                dialog.setHeaderText(message);
+            }
+
+            dialog.setContentText("Saisis un nombre entre " + min + " et " + max + ":");
+
+            Optional<String> result = dialog.showAndWait();
+
             try {
-                value = scanner.nextInt();
+                value = Integer.parseInt(result.get());
                 if (value < min || value > max) {
-                    System.out.println("La valeur doit être comprise entre " + min + " et " + max + ".");
+                    System.out.println("The value must be between " + min + " and " + max + ".");
                 } else {
                     break;
                 }
-            } catch (InputMismatchException e) {
-                System.out.println("La valeur doit être un nombre.");
-                scanner.nextLine();
+            } catch (NumberFormatException e) {
+                System.out.println("The value must be a number.");
+            } catch (Exception e) {
+                return -1;
             }
         }
 
@@ -39,31 +47,25 @@ public class InteractionUtils {
     }
 
     public static String askForString(String message) {
-        if (!message.isBlank() && !message.isEmpty()) {
-            ScrollingText.printWithDelay(message);
-        }
-
-        Scanner scanner = new Scanner(System.in);
         String value;
 
         while (true) {
-            try {
-                value = scanner.nextLine();
-                if (value.isBlank() || value.isEmpty()) {
-                    System.out.println("La valeur ne peut pas être vide.");
-                } else {
-                    break;
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("La valeur doit être une chaine de caractère.");
-                scanner.nextLine();
+            TextInputDialog dialog = new TextInputDialog();
+            if (!message.isBlank() && !message.isEmpty()) {
+                dialog.setHeaderText(message);
+            }
+
+            Optional<String> result = dialog.showAndWait();
+
+            if (result.isPresent()) {
+                value = result.get();
+                break;
+            } else {
+                System.out.println("No value entered.");
             }
         }
 
         return value;
     }
 
-    public static String askForString() {
-        return askForString("");
-    }
 }

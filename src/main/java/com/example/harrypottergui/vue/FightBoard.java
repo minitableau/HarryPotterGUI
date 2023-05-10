@@ -1,8 +1,5 @@
 package com.example.harrypottergui.vue;
 
-import com.example.harrypottergui.HelloApplication;
-import javafx.animation.Animation;
-import javafx.animation.Transition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -105,34 +102,39 @@ public class FightBoard {
 
     private void initGrille(ButtonGrid buttonGrid) {
         buttonGrid.getChildren().clear();
-        Button throwing = new Button(StartController.enemy.whatAWizardCanDoAgainstMe());
+        Label throwing = new Label(StartController.enemy.whatAWizardCanDoAgainstMe());
         throwing.setPrefWidth(200);
         throwing.setPrefHeight(40);
-        throwing.setOnAction(event -> {
-            throwing(buttonGrid);
-        });
-        Button gettingCloser = new Button("Se rapprocher");
+//        throwing.setOnAction(event -> );
+
+        Label gettingCloser = new Label("2 -> Se rapprocher");
+//        Button gettingCloser = new Button("Se rapprocher");
         gettingCloser.setPrefWidth(200);
         gettingCloser.setPrefHeight(40);
-        gettingCloser.setOnAction(event -> {
-            gettingCloser(buttonGrid);
-        });
-        Button chooseSpell = new Button("Choisir un sort");
+//        gettingCloser.setOnAction(event -> {
+//            gettingCloser(buttonGrid);
+//        });
+        Label chooseSpell = new Label("3 -> Choisir un sort");
         chooseSpell.setPrefWidth(200);
         chooseSpell.setPrefHeight(40);
-        chooseSpell.setOnAction(event -> {
-            chooseSpell(buttonGrid);
-        });
-        Button openBackpack = new Button("Ouvrir ton sac");
+//        chooseSpell.setOnAction(event -> {
+//            chooseSpell(buttonGrid);
+//        });
+        Button openBackpack = new Button("4 -> Ouvrir ton sac");
         openBackpack.setPrefWidth(200);
         openBackpack.setPrefHeight(40);
-        openBackpack.setOnAction(event -> {
-            openBackpack(buttonGrid);
-        });
+//        openBackpack.setOnAction(event -> {
+//            openBackpack(buttonGrid);
+//        });
         buttonGrid.add(throwing, 0, 0, 2, 1);
         buttonGrid.add(gettingCloser, 0, 1, 2, 1);
         buttonGrid.add(chooseSpell, 0, 2, 2, 1);
         buttonGrid.add(openBackpack, 0, 3, 2, 1);
+
+        Button choiceButton = new Button("Faire son choix");
+        choiceButton.setOnAction(event -> StartController.wizard.fight(StartController.enemy));
+
+        buttonGrid.add(choiceButton,  0, 4, 2, 1);
     }
 
 //    private void setMessage(String string) {

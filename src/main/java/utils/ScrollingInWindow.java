@@ -25,9 +25,11 @@ public class ScrollingInWindow {
     }
 
     public static Button nextButton;
+    public static Scene scene;
+
     public static void printInWindow(String text, Stage stage, int delay) {
         VBox root = new VBox();
-        Scene scene = new Scene(root, 600, 400);
+        scene = new Scene(root, 600, 400);
         stage.setScene(scene);
         TextArea textArea = new TextArea();
         textArea.setWrapText(true);

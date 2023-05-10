@@ -31,14 +31,6 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
-//    public void showNameScene(){
-//        NameVue nameVue = new NameVue();
-//        NameController nameController = new NameController(nameVue);
-//        Scene scene = new Scene(nameVue, 760, 529);
-//        stage.setTitle("Choix du nom");
-//        stage.setScene(scene);
-//        stage.show();
-//    }
 
     public static void main(String[] args) {
         launch();
