@@ -13,7 +13,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import utils.ScrollingInWindow;
 
 
@@ -81,7 +80,7 @@ public class FightBoard {
 
         //TODO : NOM + IMAGE ENNEMI
         HBhero.getChildren().add(new CharacterRepresentation(imageWizard, StartController.wizard.getName()));
-        HBennemy.getChildren().add(new CharacterRepresentation(imageEnemy, "NOM ENNEMI"));
+        HBennemy.getChildren().add(new CharacterRepresentation(imageEnemy, StartController.enemy.getName()));
     }
 
 
@@ -102,25 +101,25 @@ public class FightBoard {
 
     private void initGrille(ButtonGrid buttonGrid) {
         buttonGrid.getChildren().clear();
-        Label throwing = new Label(StartController.enemy.whatAWizardCanDoAgainstMe());
+        Label throwing = new Label("1 : " + StartController.enemy.whatAWizardCanDoAgainstMe());
         throwing.setPrefWidth(200);
         throwing.setPrefHeight(40);
 //        throwing.setOnAction(event -> );
 
-        Label gettingCloser = new Label("2 -> Se rapprocher");
+        Label gettingCloser = new Label("2 : Se rapprocher");
 //        Button gettingCloser = new Button("Se rapprocher");
         gettingCloser.setPrefWidth(200);
         gettingCloser.setPrefHeight(40);
 //        gettingCloser.setOnAction(event -> {
 //            gettingCloser(buttonGrid);
 //        });
-        Label chooseSpell = new Label("3 -> Choisir un sort");
+        Label chooseSpell = new Label("3 : Choisir un sort");
         chooseSpell.setPrefWidth(200);
         chooseSpell.setPrefHeight(40);
 //        chooseSpell.setOnAction(event -> {
 //            chooseSpell(buttonGrid);
 //        });
-        Button openBackpack = new Button("4 -> Ouvrir ton sac");
+        Label openBackpack = new Label("4 : Ouvrir ton sac");
         openBackpack.setPrefWidth(200);
         openBackpack.setPrefHeight(40);
 //        openBackpack.setOnAction(event -> {
@@ -134,7 +133,7 @@ public class FightBoard {
         Button choiceButton = new Button("Faire son choix");
         choiceButton.setOnAction(event -> StartController.wizard.fight(StartController.enemy));
 
-        buttonGrid.add(choiceButton,  0, 4, 2, 1);
+        buttonGrid.add(choiceButton, 0, 4, 2, 1);
     }
 
 //    private void setMessage(String string) {
@@ -152,21 +151,4 @@ public class FightBoard {
 //        animation.play();
 //    }
 
-    public void throwing(ButtonGrid buttonGrid) {
-        // TODO VERIF SI possible d'appeler fight directement et comprend 2 si clic sur le bouton 1 ,2 sur le 2 ....
-        StartController.enemy.onWizardAttack(StartController.wizard);
-
-    }
-
-    public void gettingCloser(ButtonGrid buttonGrid) {
-
-    }
-
-    public void chooseSpell(ButtonGrid buttonGrid) {
-
-    }
-
-    public void openBackpack(ButtonGrid buttonGrid) {
-
-    }
 }

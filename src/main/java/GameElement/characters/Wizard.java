@@ -7,8 +7,8 @@ import GameElement.items.Backpack;
 import GameElement.spells.AbstractSpell;
 import Level.Level2;
 import MiniGame.ThirteenStick.ThirteenStick;
-import utils.ConsoleColors;
 import utils.InteractionUtils;
+import utils.ScrollingInWindow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +30,7 @@ public class Wizard extends Character {
     private int resistanceBonus;
     private int mana;
     private int money = 100;
+    private String spellstring;
 
     public Wizard(String name, Pet pet, Wand wand, House house) {
         super(name);
@@ -56,14 +57,15 @@ public class Wizard extends Character {
 //
 //        int choice = InteractionUtils.askForInt(1, 4);
 
-        int choice = InteractionUtils.askForInt(1, 4);
+        int choice = InteractionUtils.askForInt("\nQue voulez-vous faire sachant que " + enemy.getName() + " se situe à " + enemy.getDistance() + " mètres et à " + enemy.getLifePoint() + " points de vie ?" +
+                "\n1 : " + enemy.whatAWizardCanDoAgainstMe() + "\n2 : Se rapprocher\n3 : Utiliser un sort\n4 : Ouvrir votre sac", 1, 4);
 
         while (true) {
             if (choice == 1) {
                 enemy.onWizardAttack(this);
                 break;
             } else if (choice == 2) {
-                System.out.println("Vous vous rapprochez du " + enemy.getName() + ".");
+                ScrollingInWindow.setMessage("Vous vous rapprochez du " + enemy.getName() + ".");
                 enemy.setDistance(enemy.getDistance() - 1);
                 enemy.onWizardBackpackOpen(this);
                 break;
@@ -99,7 +101,7 @@ public class Wizard extends Character {
             }
             List<Friend> sameHomeWizardFriends = enemy.whichFriendsCanTheWizardHave(this);
             for (Friend sameHomeWizardFriend : sameHomeWizardFriends) {
-                System.out.println("\nVotre ami " + sameHomeWizardFriend.getName() + " peut aussi attaquer le " + enemy.getName() + ".");
+                ScrollingInWindow.setMessage("\nVotre ami " + sameHomeWizardFriend.getName() + " peut aussi attaquer le " + enemy.getName() + ".");
                 attack(enemy);
                 if (enemy.getDistance() < 1 || !enemy.isAlive()) {
                     break;
@@ -115,17 +117,17 @@ public class Wizard extends Character {
         if (enemy.getDistance() < 1) {
             this.die();
             if (enemy.getType().equals("Humain")) {
-                System.out.println("Quel idée de se coller à " + enemy.getName() + " ! Celui-ci vous attrape et vous tue.");
+                ScrollingInWindow.setMessage("Quel idée de se coller à " + enemy.getName() + " ! Celui-ci vous attrape et vous tue.");
             } else {
-                System.out.println("Quel idée de se coller au " + enemy.getName() + " ! Celui-ci vous mange.");
+                ScrollingInWindow.setMessage("Quel idée de se coller au " + enemy.getName() + " ! Celui-ci vous mange.");
             }
         }
 
         if (!enemy.isAlive()) {
             if (enemy.getType().equals("Humain")) {
-                System.out.println("Vous avez vaincu " + enemy.getName() + " !");
+                ScrollingInWindow.setMessage("Vous avez vaincu " + enemy.getName() + " !");
             } else {
-                System.out.println("Vous avez vaincu " + enemy.getName() + " !");
+                ScrollingInWindow.setMessage("Vous avez vaincu " + enemy.getName() + " !");
                 Level2.tooth = false;
             }
         }
@@ -140,20 +142,21 @@ public class Wizard extends Character {
 
         AbstractSpell spell = null;
         if (numSpells == 0) {
-            System.out.println("Vous n'avez appris aucun sort.");
+            ScrollingInWindow.setMessage("Vous n'avez appris aucun sort.");
         } else {
-            System.out.println(ConsoleColors.BLUE + "\nVeuillez choisir un sort :" + ConsoleColors.RESET);
+            spellstring = "";
             for (int i = 0; i < numSpells; i++) {
-                System.out.println((i + 1) + " : " + this.getKnownSpells().get(i).getName());
+                spellstring += "\n" + (i + 1) + " : " + this.getKnownSpells().get(i).getName();
             }
-            System.out.println((numSpells + 1) + " : Ne pas utiliser de sort.");
 
-            int choice = InteractionUtils.askForInt(1, numSpells + 1);
+
+            int choice = InteractionUtils.askForInt("\nVeuillez choisir un sort :" +
+                    spellstring + "\n" + (numSpells + 1) + " : Ne pas utiliser de sort.", 1, numSpells + 1);
             if (choice < numSpells + 1) {
                 spell = this.getKnownSpells().get(choice - 1);
-                System.out.println("Vous avez choisi le sort " + spell.getName() + ".");
+                ScrollingInWindow.setMessage("Vous avez choisi le sort " + spell.getName() + ".");
             } else {
-                System.out.println("Vous avez choisi de ne pas utiliser de sort.");
+                ScrollingInWindow.setMessage("Vous avez choisi de ne pas utiliser de sort.");
             }
         }
 
