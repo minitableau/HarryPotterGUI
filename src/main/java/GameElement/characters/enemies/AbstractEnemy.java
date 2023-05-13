@@ -8,14 +8,16 @@ import java.util.List;
 
 public abstract class AbstractEnemy extends Character {
     private final String type;
+    private final String url;
     private int distance;
     private int damage;
 
-    public AbstractEnemy(String name, String type, int distance, int damage) {
+    public AbstractEnemy(String name, String type, int distance, int damage, String url) {
         super(name);
         this.type = type;
         this.distance = distance;
         this.damage = damage;
+        this.url = url;
     }
 
     public abstract String whatAWizardCanDoAgainstMe();
@@ -44,5 +46,9 @@ public abstract class AbstractEnemy extends Character {
 
     public void setDamage(int damage) {
         this.damage = damage;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }

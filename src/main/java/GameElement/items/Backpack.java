@@ -6,6 +6,10 @@ import GameElement.characters.Wizard;
 import GameElement.characters.enemies.AbstractEnemy;
 import GameElement.characters.enemies.Basilic;
 import GameElement.characters.enemies.DoloresOmbrage;
+import com.example.harrypottergui.vue.CharacterRepresentation;
+import com.example.harrypottergui.vue.FightBoard;
+import com.example.harrypottergui.vue.StartController;
+import javafx.animation.Timeline;
 import utils.InteractionUtils;
 import utils.ScrollingInWindow;
 
@@ -126,6 +130,8 @@ public class Backpack {
                         if (wizard.getHouse() == House.GRYFFINDOR) {
                             ScrollingInWindow.setMessage("Vous prenez de la hauteur en montant sur une statue proche de vous et essayer de portez un coup en utilisant l'épee volé dans le bureau de Dumbledore, celle-ci transperse le basilic et le tue.");
                             enemy.die();
+                            Timeline task = FightBoard.setBarEnemy((StartController.enemy), ((CharacterRepresentation) FightBoard.HBenemy.getChildren().get(0)).getBarreDeVie());
+                            task.playFromStart();
                         } else {
                             ScrollingInWindow.setMessage("Vous prenez de la hauteur en montant sur une statue proche de vous et essayer de portez un coup en utilisant l'épee volé dans le bureau de Dumbledore, celle-ci se brise au contact du basilic.");
                             items.remove(choice - 1);

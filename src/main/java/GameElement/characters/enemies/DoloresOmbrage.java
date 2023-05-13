@@ -5,13 +5,17 @@ import GameElement.characters.Character;
 import GameElement.characters.Wizard;
 import GameElement.items.Item;
 import Level.Level5;
+import com.example.harrypottergui.vue.CharacterRepresentation;
+import com.example.harrypottergui.vue.FightBoard;
+import javafx.animation.Timeline;
 import utils.MathUtils;
+import utils.ScrollingInWindow;
 
 import java.util.List;
 
 public class DoloresOmbrage extends Enemy {
     public DoloresOmbrage() {
-        super("Dolores Ombrage", "Humain", 4, 10);
+        super("Dolores Ombrage", "Humain", 4, 10, "/images/Dolores-Ombrage.png");
     }
 
     @Override
@@ -24,9 +28,13 @@ public class DoloresOmbrage extends Enemy {
         if (randomValue <= chanceOfSuccess) {
             int damage = this.getDamage() - (this.getDamage() * wizard.getResistanceBonus()) / 100;
             wizard.takeDamage(damage);
+            Timeline task = FightBoard.setBarWizard((wizard), ((CharacterRepresentation) FightBoard.HBhero.getChildren().get(0)).getBarreDeVie());
+            task.playFromStart();
             System.out.println("Dolores Ombrage, vous touche et vous enlève " + damage + " points de vie.");
             if (!wizard.isAlive()) {
                 System.out.println("Vous êtes mort! Dolores Ombrage vous à vaincu.");
+                FightBoard.gameStage.close();
+                ScrollingInWindow.stagetext.close();
             }
         } else {
             System.out.println("Dolores Ombrage lance un sort mais vous arrivez à l'éviter.");
@@ -38,6 +46,8 @@ public class DoloresOmbrage extends Enemy {
         int damage = 0 + (0 * wizard.getPowerBonus()) / 100;
         System.out.println("Vous jetez des stylos sur Dolores Ombrage. Elle perd " + damage + " points de vie");
         this.takeDamage(damage);
+        Timeline task = FightBoard.setBarEnemy((this), ((CharacterRepresentation) FightBoard.HBenemy.getChildren().get(0)).getBarreDeVie());
+        task.playFromStart();
     }
 
     @Override

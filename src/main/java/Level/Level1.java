@@ -10,6 +10,7 @@ import GameElement.spells.WindgardiumLeviosa;
 import MiniGame.RockPaperScissors.RockPaperScissors;
 import MiniGame.TicTacToe.TicTacToe;
 import com.example.harrypottergui.vue.FightBoard;
+import com.example.harrypottergui.vue.StartController;
 import utils.ConsoleColors;
 import utils.InteractionUtils;
 import utils.ScrollingInWindow;
@@ -42,7 +43,8 @@ public class Level1 extends AbstractLevel {
                         String TrollComing = "Quelque minutes plus tard un professeur arrive en paniquant dans votre cours, il annonce qu'un Troll c'est échappé et ce balade dans l'école. \nTous les élèves se mettent à crier dans tout les sens. Mais pas vous, vous pensez directement à Fleur qui est parti pleurer au toilette et n'a pas l'information. \nAinsi, à la place de suivre tout les autres et évacuer l'école pour se rendre dans le jardin vous allez en direction des toilettes des filles pour aider votre amie.\nVous réussissez à convaincre " + friendsString + "de venir avec vous.\nVous arrivez proche des toilettes et entendant crier vous courez alors encore plus vite et voyer le troll entrain de fracasser les toilettes. \nVous engagez alors le combat pour sauver votre amie.";
                         ScrollingInWindow.printInWindow(TrollComing);
                         nextButton.setOnAction(event23 -> {
-                            enemy = new Troll();
+                            //TODO P ETRE CLOSE LA STAGE
+                            StartController.enemy = new Troll();
 //                            wizard.fight(enemy);
                             FightBoard fightBoard = new FightBoard();
                             fightBoard.creationFenetreJeu(fightBoard);
@@ -55,10 +57,7 @@ public class Level1 extends AbstractLevel {
                                 wizard.setHousePoints(wizard.getHousePoints() - 20);
                                 wizard.setHousePoints(wizard.getHousePoints() + 10);
                                 wizard.setHousePoints(wizard.getHousePoints() + 10 * friendsWithYou.size());
-
 //                            simulateQuidditchMatch(wizard);
-                                //TODO: faire un match de quidditch
-
                                 nextButton.setOnAction(event25 -> {
                                     String CHRISTMAS = "Arrive la moitié de l'année et la période de noel, vous voyait tous les membres de votre maison recevoir des cadeaux et vous vous vous doutiez que vous n'aurait rien car \nvous n'avez jamais rien eu. Mais a votre grande surprise quand vous vous rendez à votre dortoir vous trouvez sur votre lit un cadeau d'un inconnu. \nIl s'agit la d'une cape d'invisibilité.\n";
                                     ScrollingInWindow.printInWindow(CHRISTMAS);
@@ -73,7 +72,6 @@ public class Level1 extends AbstractLevel {
                                                 ScrollingInWindow.printInWindow(SECONDARY_QUEST);
 //                                                nextButton.setOnAction(event29 -> {
 //                                                    exploreForbiddenCorridor(wizard);
-                                                //TODO: faire un mini jeu pour explorer le couloir interdit
                                                 nextButton.setOnAction(event30 -> {
                                                     String FIN_ANNEE = "Vous vous remettez de vos blessures et fêtait la fin d'année. Vous vous retrouvez dans la salle principale de Poudlard, \noù le professeur Dumbledore annonce la maisons ayant récolté le plus de points : il s'agit de ";
                                                     ScrollingInWindow.printInWindow(FIN_ANNEE);
@@ -83,6 +81,8 @@ public class Level1 extends AbstractLevel {
                                                             String GO_MARKET = "\nVous passez brillamment votre première année et rentrer chez vous durant les vacances." + ConsoleColors.ITALIC + "\n\tPlusieurs semaines s'écoulent, voilà déjà la rentrée arriver." + ConsoleColors.RESET;
                                                             ScrollingInWindow.printInWindow(GO_MARKET);
                                                             nextButton.setOnAction(event33 -> {
+                                                                if (!wizard.isAlive()) return;
+                                                                new Level2().startLevel(wizard);
                                                             });
                                                         });
                                                     });
@@ -115,7 +115,6 @@ public class Level1 extends AbstractLevel {
             ScrollingInWindow.printInWindow(Choice2, 0);
             wizard.setHousePoints(wizard.getHousePoints() - 20);
             wizard.addKnowledge(Knowledge.quidditch);
-//TODO plus de quete quidditch en interface graphique
         }
     }
 

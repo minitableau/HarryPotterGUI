@@ -8,14 +8,19 @@ import GameElement.characters.Character;
 import GameElement.characters.Wizard;
 import GameElement.spells.AvadaKedavra;
 import Level.Level7;
+import com.example.harrypottergui.vue.CharacterRepresentation;
+import com.example.harrypottergui.vue.FightBoard;
+import com.example.harrypottergui.vue.StartController;
+import javafx.animation.Timeline;
 import utils.MathUtils;
+import utils.ScrollingInWindow;
 
 import java.util.List;
 
 public class Voldemort extends Boss {
 
     public Voldemort() {
-        super("Voldemort", "Human", 10, 10);
+        super("Voldemort", "Human", 10, 10, "/images/voldemort.png");
     }
 
     @Override
@@ -35,6 +40,8 @@ public class Voldemort extends Boss {
                     System.out.println("Vous avez de la chance Voldemort aurait du vous tuer avec Avada Kedavra mais il ne peut pas car vous avez une baguette avec un coeur de Phénix.");
                 } else {
                     wizard.die();
+                    Timeline task = FightBoard.setBarWizard((StartController.wizard), ((CharacterRepresentation) FightBoard.HBhero.getChildren().get(0)).getBarreDeVie());
+                    task.playFromStart();
                     System.out.println("Voldemort vous a tué avec Avada Kedavra.");
                 }
             } else {
@@ -45,9 +52,13 @@ public class Voldemort extends Boss {
         } else if (randomValue <= chanceOfSuccess) {
             int damage = this.getDamage() - (this.getDamage() * wizard.getResistanceBonus()) / 100;
             wizard.takeDamage(damage);
+            Timeline task = FightBoard.setBarWizard((wizard), ((CharacterRepresentation) FightBoard.HBhero.getChildren().get(0)).getBarreDeVie());
+            task.playFromStart();
             System.out.println("Voldemort, vous touche et vous enlève " + damage + " points de vie.");
             if (!wizard.isAlive()) {
                 System.out.println("Vous êtes mort! Voldemort vous a vaincu.");
+                FightBoard.gameStage.close();
+                ScrollingInWindow.stagetext.close();
             }
         } else {
             System.out.println("Voldemort lance un sort mais vous arrivez à l'éviter.");
@@ -65,6 +76,8 @@ public class Voldemort extends Boss {
         int damage = 1 + (1 * wizard.getPowerBonus()) / 100;
         System.out.println("Vous jetez des pierre sur Bellatrix Lestrange. Elle perd " + damage + " points de vie");
         this.takeDamage(damage);
+        Timeline task = FightBoard.setBarEnemy((this), ((CharacterRepresentation) FightBoard.HBenemy.getChildren().get(0)).getBarreDeVie());
+        task.playFromStart();
     }
 
     @Override

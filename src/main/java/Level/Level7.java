@@ -8,6 +8,7 @@ import GameElement.characters.enemies.Voldemort;
 import GameElement.spells.Confringo;
 import GameElement.spells.Expelliarmus;
 import GameElement.spells.PetrificusTotalus;
+import com.example.harrypottergui.vue.StartController;
 import utils.ScrollingText;
 
 
@@ -27,18 +28,18 @@ public class Level7 extends AbstractLevel {
         if (Level6.areYouDeathEater) {
             String NewFight = "Vous descendez dans la cours de Poudlard dans laquelle vous trouvez le professeur McGonagall qui essaie de vous arretez. Vous engagez le combat seul contre elle \npour montrer de quoi vous etes capable.";
             ScrollingText.printWithDelay(NewFight);
-            enemy = new MinervaMcGonagall();
-            wizard.fight(enemy);
+            StartController.enemy = new MinervaMcGonagall();
+//            wizard.fight(enemy);
         } else {
             String NewFight = "Vous descendez dans la cours de Poudlard dans laquelle vous trouvez Voldmort et Bellatrix Lestrange. Bellatrix Lestrange se place alors devant Voldemort. \nVous allez donc devoir vaincre Bellatrix Lestrange pour pouvoir atteindre Voldemort.";
             ScrollingText.printWithDelay(NewFight);
-            enemy = new BellatrixLestrange();
-            wizard.fight(enemy);
+            StartController.enemy = new BellatrixLestrange();
+//            wizard.fight(enemy);
             if (!wizard.isAlive()) return;
             String FightContinue = "Vous pouvez désormais attaquer Voldemort.";
             ScrollingText.printWithDelay(FightContinue);
-            enemy = new Voldemort();
-            wizard.fight(enemy);
+            StartController.enemy = new Voldemort();
+//            wizard.fight(enemy);
         }
         if (!wizard.isAlive()) return;
         String Victory = "Vous avez réussi à survive à tous les niveaux, vous avez fini le jeu. Bravo !";

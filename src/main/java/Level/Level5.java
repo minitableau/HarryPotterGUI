@@ -4,6 +4,7 @@ import GameElement.characters.Wizard;
 import GameElement.characters.enemies.DoloresOmbrage;
 import GameElement.characters.enemies.Enemy;
 import GameElement.spells.FeuxfousFuseboum;
+import com.example.harrypottergui.vue.StartController;
 import utils.ScrollingText;
 
 public class Level5 extends AbstractLevel {
@@ -16,8 +17,8 @@ public class Level5 extends AbstractLevel {
         String IntroLvl5 = "Vous retournez a Poudlard et vous remarquez que Dolores Ombrage est la nouvelle directrice de l'école. Vous appréciez particulièrement Dumbledore et vous êtes triste de le voir partir. \nVous devez faire avec, l'année commence par un cours assez différent de ce que vous connaissiez, vous comprenez que la nouvelle directrice à changer le programme d'apprentissage. \nEn effet, vous n'apprenez plus des sorts pour vous battre mais vous apprenez des sorts qui permettent de générer des feux d'artifice. Il s'agit de FeuxfousFuseboum. \nVous y arrivez plutôt bien mais vous finissez par quittez le cours car vous n'avez pas envie de travailler un sort qui ne vous servira à rien.\nLe grand jour est arrivé, c'est l'heure de passer le Brevet Universel de Sorcellerie Élémentaire (BUSE). Mais Dolores Ombrage, la nouvelle directrice qui ne souhaite pas voir \nles élèves de Poudlard progresser dans le domaine du combat, elle est aigri. Elle veille donc au grain et compte bien se mettre au travers de votre chemin \nsurtout qu'elle n'a pas oublié votre attitude à son premier cours. Vous engagez donc un combat contre elle.";
         ScrollingText.printWithDelay(IntroLvl5);
         wizard.addSpell(new FeuxfousFuseboum());
-        Enemy enemy = new DoloresOmbrage();
-        wizard.fight(enemy);
+        StartController.enemy = new DoloresOmbrage();
+//        wizard.fight(enemy);
         if (!wizard.isAlive()) return;
         String SuccessfulEscape = "Les évaluateurs ont vu de quoi vous étiez capable lors de votre combat et decide donc de validé votre BUSE. L'année se termine vous validé une nouvelle année sans trop de difficulté. \nJuste avant de partir en vacance un match de Quidditch a lieu. ";
         ScrollingText.printWithDelay(SuccessfulEscape);

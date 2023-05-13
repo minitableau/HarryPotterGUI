@@ -10,8 +10,8 @@ import java.util.List;
 public class Enemy extends AbstractEnemy {
 
 
-    public Enemy(String name, String type, int distance, int damage) {
-        super(name, type, distance, damage);
+    public Enemy(String name, String type, int distance, int damage, String url) {
+        super(name, type, distance, damage, url);
     }
 
     @Override
@@ -20,7 +20,9 @@ public class Enemy extends AbstractEnemy {
     }
 
     @Override
-    public List<Friend> whichFriendsCanTheWizardHave(Wizard wizard) {return new ArrayList<>();}
+    public List<Friend> whichFriendsCanTheWizardHave(Wizard wizard) {
+        return new ArrayList<>();
+    }
 
     @Override
     public void onWizardAttack(Wizard wizard) {
@@ -34,10 +36,4 @@ public class Enemy extends AbstractEnemy {
     public void attack(Character character) {
     }
 
-//    public static Enemy troll = new Enemy("Troll des montagnes", "Troll", 10, 5);//30
-//    public static Enemy basilic = new Enemy("Basilic de Salazar Serpentard", "Basilic", 3, 5);//30
-//    public static Enemy dementors = new Enemy("Détraqueurs", "Détraqueurs", 8, 5);//20
-//    public static Enemy peterPettigrew = new Enemy("Peter Pettigrew", "Humain", 10, 5);//20
-//    public static Enemy doloresOmbrage = new Enemy("Dolores Ombrage", "Humain", 4, 5);//10
-//    public static Enemy deathEater = new Enemy("DeathEater", "Humain", 5, 5);//10
 }

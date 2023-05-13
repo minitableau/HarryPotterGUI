@@ -6,6 +6,7 @@ import GameElement.characters.enemies.DeathEater;
 import GameElement.characters.enemies.Enemy;
 import GameElement.items.Market;
 import GameElement.spells.Sectumsempra;
+import com.example.harrypottergui.vue.StartController;
 import utils.ConsoleColors;
 import utils.InteractionUtils;
 import utils.ScrollingText;
@@ -33,8 +34,8 @@ public class Level6 extends AbstractLevel {
         String StartFight = "Vous engagez le combat avec les mangemorts";
         ScrollingText.printWithDelay(StartFight);
 
-        Enemy enemy = new DeathEater();
-        wizard.fight(enemy);
+        StartController.enemy = new DeathEater();
+//        wizard.fight(enemy);
         if (!wizard.isAlive()) return;
 
 

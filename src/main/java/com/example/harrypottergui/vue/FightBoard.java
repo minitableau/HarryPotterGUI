@@ -1,10 +1,16 @@
 package com.example.harrypottergui.vue;
 
+import GameElement.characters.Wizard;
+import GameElement.characters.enemies.Enemy;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -13,6 +19,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import utils.ScrollingInWindow;
 
 
@@ -22,20 +29,16 @@ public class FightBoard {
     private static final int G_HEIGHT = 800;
     private AnchorPane gamePane;
     private Scene gameScene;
-    private Stage gameStage;
-    private Stage menuStage;
-
+    public static Stage gameStage;
     private GridPane gridPane1;
     private GridPane gridPane2;
     public static Label textDialogue;
 
-    private HBox HBhero;
-    private HBox HBennemy;
+    public static HBox HBhero;
+    public static HBox HBenemy;
     private HBox HBsubscene;
 
     private final static String imageWizard = "/images/wizard.png";
-    private static String imageEnemy = "/images/troll.png";
-    private final static String imageBoss = "/images/BOSS.png";
     private final static String textBook = "/images/Book.jpg";
 
 
@@ -51,10 +54,10 @@ public class FightBoard {
         AnchorPane.setTopAnchor(HBhero, 200.);
         AnchorPane.setLeftAnchor(HBhero, 75.);
         gamePane.getChildren().add(HBhero);
-        HBennemy = new HBox();
-        AnchorPane.setTopAnchor(HBennemy, 10.);
-        AnchorPane.setLeftAnchor(HBennemy, 520.);
-        gamePane.getChildren().add(HBennemy);
+        HBenemy = new HBox();
+        AnchorPane.setTopAnchor(HBenemy, 10.);
+        AnchorPane.setLeftAnchor(HBenemy, 520.);
+        gamePane.getChildren().add(HBenemy);
         gameScene = new Scene(gamePane, G_WIDTH, G_HEIGHT);
         gameStage = new Stage();
         gameStage.setScene(gameScene);
@@ -80,13 +83,15 @@ public class FightBoard {
 
         //TODO : NOM + IMAGE ENNEMI
         HBhero.getChildren().add(new CharacterRepresentation(imageWizard, StartController.wizard.getName()));
-        HBennemy.getChildren().add(new CharacterRepresentation(imageEnemy, StartController.enemy.getName()));
+        HBenemy.getChildren().add(new CharacterRepresentation(StartController.enemy.getUrl(), StartController.enemy.getName()));
     }
 
 
     public void creationFenetreJeu(FightBoard fightBoard) {
         this.fightBoard = fightBoard;
         gameStage.show();
+        Timeline task = FightBoard.setBarWizard((StartController.wizard), ((CharacterRepresentation) FightBoard.HBhero.getChildren().get(0)).getBarreDeVie());
+        task.playFromStart();
     }
 
     public void setGame() {
@@ -136,19 +141,33 @@ public class FightBoard {
         buttonGrid.add(choiceButton, 0, 4, 2, 1);
     }
 
-//    private void setMessage(String string) {
-//        final Animation animation = new Transition() {
-//            {
-//                setCycleDuration(Duration.millis(1000));
-//            }
-//
-//            protected void interpolate(double frac) {
-//                final int length = string.length();
-//                final int n = Math.round(length * (float) frac);
-//                textDialogue.setText(string.substring(0, n));
-//            }
-//        };
-//        animation.play();
-//    }
+    public static Timeline setBarWizard(Wizard wizard, ProgressBar bar) {
+        Timeline task = new Timeline(
+                new KeyFrame(
+                        Duration.ZERO,
+                        new KeyValue(bar.progressProperty(), bar.getProgress())
+                ),
+                new KeyFrame(
+                        Duration.seconds(1),
+                        new KeyValue(bar.progressProperty(), wizard.getLifePoint() / (wizard.getMaxLifePoint() * 1.0))
+                )
+        );
 
+        return task;
+    }
+
+    public static Timeline setBarEnemy(Enemy enemy, ProgressBar bar) {
+        Timeline task = new Timeline(
+                new KeyFrame(
+                        Duration.ZERO,
+                        new KeyValue(bar.progressProperty(), bar.getProgress())
+                ),
+                new KeyFrame(
+                        Duration.seconds(1),
+                        new KeyValue(bar.progressProperty(), enemy.getLifePoint() / (enemy.getMaxLifePoint() * 1.0))
+                )
+        );
+
+        return task;
+    }
 }

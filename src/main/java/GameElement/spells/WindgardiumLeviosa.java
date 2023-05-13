@@ -4,6 +4,10 @@ import GameElement.characters.Character;
 import GameElement.characters.Wizard;
 import GameElement.characters.enemies.PeterPettigrew;
 import GameElement.characters.enemies.Troll;
+import com.example.harrypottergui.vue.CharacterRepresentation;
+import com.example.harrypottergui.vue.FightBoard;
+import com.example.harrypottergui.vue.StartController;
+import javafx.animation.Timeline;
 import utils.MathUtils;
 
 public class WindgardiumLeviosa extends Spell {
@@ -32,6 +36,8 @@ public class WindgardiumLeviosa extends Spell {
             if (randomValue <= chanceOfSuccess) {
                 System.out.println("Votre sort atteint la massue du troll, vous diriger alors la massue plusieurs mètres au dessus de ca tete et la laisser tombé ce qui assomme le troll.");
                 troll.die();
+                Timeline task = FightBoard.setBarEnemy((StartController.enemy), ((CharacterRepresentation) FightBoard.HBenemy.getChildren().get(0)).getBarreDeVie());
+                task.playFromStart();
             } else {
                 System.out.println("Vous ratez votre sort de justesse.");
             }
@@ -50,6 +56,8 @@ public class WindgardiumLeviosa extends Spell {
             if (randomValue <= chanceOfSuccess) {
                 System.out.println("Votre sort atteint le portolion, vous l'amenez à vous et l'utiliser pour vous enfuir.");
                 peterPettigrew.die();
+                Timeline task = FightBoard.setBarEnemy((StartController.enemy), ((CharacterRepresentation) FightBoard.HBenemy.getChildren().get(0)).getBarreDeVie());
+                task.playFromStart();
             } else {
                 System.out.println("Vous ratez votre sort de justesse.");
             }

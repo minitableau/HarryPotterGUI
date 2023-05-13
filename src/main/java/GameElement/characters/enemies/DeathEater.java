@@ -3,7 +3,11 @@ package GameElement.characters.enemies;
 import GameElement.Friend;
 import GameElement.characters.Character;
 import GameElement.characters.Wizard;
+import com.example.harrypottergui.vue.CharacterRepresentation;
+import com.example.harrypottergui.vue.FightBoard;
+import javafx.animation.Timeline;
 import utils.MathUtils;
+import utils.ScrollingInWindow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +15,7 @@ import java.util.List;
 public class DeathEater extends Enemy {
 
     public DeathEater() {
-        super("des Mangemorts", "Humain", 5, 10);
+        super("des Mangemorts", "Humain", 5, 10, "/images/deathEater.png");
     }
 
     @Override
@@ -23,9 +27,13 @@ public class DeathEater extends Enemy {
         if (randomValue <= chanceOfSuccess) {
             int damage = this.getDamage() - (this.getDamage() * wizard.getResistanceBonus()) / 100;
             wizard.takeDamage(damage);
+            Timeline task = FightBoard.setBarWizard((wizard), ((CharacterRepresentation) FightBoard.HBhero.getChildren().get(0)).getBarreDeVie());
+            task.playFromStart();
             System.out.println("Les mangemorts, vous touchent et vous enlèvent " + damage + " points de vie.");
             if (!wizard.isAlive()) {
                 System.out.println("Vous êtes mort! Les mangemorts vous ont vaincu.");
+                FightBoard.gameStage.close();
+                ScrollingInWindow.stagetext.close();
             }
         } else {
             System.out.println("Les mangemorts lancent des sorts mais vous arrivez à les éviter.");
@@ -37,6 +45,8 @@ public class DeathEater extends Enemy {
         int damage = 5 + (5 * wizard.getPowerBonus()) / 100;
         System.out.println("Vous jetez des compas sur les mangemorts. Ils perdent " + damage + " points de vie");
         this.takeDamage(damage);
+        Timeline task = FightBoard.setBarEnemy((this), ((CharacterRepresentation) FightBoard.HBenemy.getChildren().get(0)).getBarreDeVie());
+        task.playFromStart();
     }
 
     @Override

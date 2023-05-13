@@ -7,6 +7,10 @@ import GameElement.items.Backpack;
 import GameElement.spells.AbstractSpell;
 import Level.Level2;
 import MiniGame.ThirteenStick.ThirteenStick;
+import com.example.harrypottergui.vue.CharacterRepresentation;
+import com.example.harrypottergui.vue.FightBoard;
+import com.example.harrypottergui.vue.StartController;
+import javafx.animation.Timeline;
 import utils.InteractionUtils;
 import utils.ScrollingInWindow;
 
@@ -97,6 +101,7 @@ public class Wizard extends Character {
                 break;
             }
             if (!enemy.isAlive()) {
+                FightBoard.gameStage.close();
                 break;
             }
             List<Friend> sameHomeWizardFriends = enemy.whichFriendsCanTheWizardHave(this);
@@ -104,10 +109,12 @@ public class Wizard extends Character {
                 ScrollingInWindow.setMessage("\nVotre ami " + sameHomeWizardFriend.getName() + " peut aussi attaquer le " + enemy.getName() + ".");
                 attack(enemy);
                 if (enemy.getDistance() < 1 || !enemy.isAlive()) {
+                    FightBoard.gameStage.close();
                     break;
                 }
             }
             if (enemy.getDistance() < 1 || !enemy.isAlive()) {
+                FightBoard.gameStage.close();
                 break;
             }
 
@@ -116,19 +123,27 @@ public class Wizard extends Character {
 
         if (enemy.getDistance() < 1) {
             this.die();
+            Timeline task = FightBoard.setBarWizard((StartController.wizard), ((CharacterRepresentation) FightBoard.HBhero.getChildren().get(0)).getBarreDeVie());
+            task.playFromStart();
             if (enemy.getType().equals("Humain")) {
                 ScrollingInWindow.setMessage("Quel idée de se coller à " + enemy.getName() + " ! Celui-ci vous attrape et vous tue.");
+                FightBoard.gameStage.close();
+                ScrollingInWindow.stagetext.close();
             } else {
                 ScrollingInWindow.setMessage("Quel idée de se coller au " + enemy.getName() + " ! Celui-ci vous mange.");
+                FightBoard.gameStage.close();
+                ScrollingInWindow.stagetext.close();
             }
         }
 
         if (!enemy.isAlive()) {
             if (enemy.getType().equals("Humain")) {
                 ScrollingInWindow.setMessage("Vous avez vaincu " + enemy.getName() + " !");
+                FightBoard.gameStage.close();
             } else {
                 ScrollingInWindow.setMessage("Vous avez vaincu " + enemy.getName() + " !");
                 Level2.tooth = false;
+                FightBoard.gameStage.close();
             }
         }
     }

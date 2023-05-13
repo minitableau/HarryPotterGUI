@@ -3,14 +3,18 @@ package GameElement.characters.enemies;
 import GameElement.Friend;
 import GameElement.characters.Character;
 import GameElement.characters.Wizard;
+import com.example.harrypottergui.vue.CharacterRepresentation;
+import com.example.harrypottergui.vue.FightBoard;
+import javafx.animation.Timeline;
 import utils.MathUtils;
+import utils.ScrollingInWindow;
 
 import java.util.List;
 
 public class BellatrixLestrange extends Boss {
 
     public BellatrixLestrange() {
-        super("Bellatrix Lestrange", "Human", 10, 20);
+        super("Bellatrix Lestrange", "Human", 10, 20,"/images/BellatrixLestrange.png");
     }
 
     @Override
@@ -22,9 +26,13 @@ public class BellatrixLestrange extends Boss {
         if (randomValue <= chanceOfSuccess) {
             int damage = this.getDamage() - (this.getDamage() * wizard.getResistanceBonus()) / 100;
             wizard.takeDamage(damage);
+            Timeline task = FightBoard.setBarWizard((wizard), ((CharacterRepresentation) FightBoard.HBhero.getChildren().get(0)).getBarreDeVie());
+            task.playFromStart();
             System.out.println("Bellatrix Lestrange, vous touche et vous enlève " + damage + " points de vie.");
             if (!wizard.isAlive()) {
                 System.out.println("Vous êtes mort! Bellatrix Lestrange vous a vaincu.");
+                FightBoard.gameStage.close();
+                ScrollingInWindow.stagetext.close();
             }
         } else {
             System.out.println("Bellatrix Lestrange lance un sort mais vous arrivez à l'éviter.");
@@ -41,6 +49,8 @@ public class BellatrixLestrange extends Boss {
         int damage = 1 + (1 * wizard.getPowerBonus()) / 100;
         System.out.println("Vous jetez des pierre sur Bellatrix Lestrange. Elle perd " + damage + " points de vie");
         this.takeDamage(damage);
+        Timeline task = FightBoard.setBarEnemy((this), ((CharacterRepresentation) FightBoard.HBenemy.getChildren().get(0)).getBarreDeVie());
+        task.playFromStart();
     }
 
     @Override

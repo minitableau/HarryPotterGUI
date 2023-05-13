@@ -1,6 +1,5 @@
 package com.example.harrypottergui.vue;
 
-import GameElement.characters.Wizard;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -20,6 +19,7 @@ public class CharacterRepresentation extends VBox {
         this.barreDeVie = new ProgressBar();
         this.nomCombatant = new Label(name);
         this.barreDeVie.setProgress(1);
+//        this.barreDeVie.setProgress(character.getLifePoint() / character.getMaxLifePoint());
         this.setSpacing(5);
         this.setAlignment(Pos.CENTER);
 
@@ -34,16 +34,6 @@ public class CharacterRepresentation extends VBox {
         return barreDeVie;
     }
 
-    public void setBarreDeVie(int pdvMax, float pdvActuel) {
-        barreDeVie.setProgress(pdvActuel / pdvMax);
-    }
 
-    public float RatioPdv(int pdvMax, float pdvActuel) {
-        return pdvActuel / pdvMax;
-    }
-
-    public Label getNomCombatant() {
-        return nomCombatant;
-    }
 }
 
