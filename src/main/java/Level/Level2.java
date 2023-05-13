@@ -94,6 +94,8 @@ public class Level2 extends AbstractLevel {
                                                                                             String GO_MARKET = "\nVous passez brillamment votre deuxième année et rentrer chez vous durant les vacances." + ConsoleColors.ITALIC + "\n\tPlusieurs semaines s'écoulent, voilà déjà la rentrée arriver." + ConsoleColors.RESET;
                                                                                             ScrollingInWindow.printInWindow(GO_MARKET);
                                                                                             nextButton.setOnAction(event55 -> {
+                                                                                                if (!wizard.isAlive()) return;
+                                                                                                new Level3().startLevel(wizard);
                                                                                             });
 //                                                                                        });
                                                                                     });
